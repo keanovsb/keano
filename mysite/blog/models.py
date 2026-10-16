@@ -3,19 +3,18 @@ from django.db import models
 from django.utils import timezone
 
 
-class Post(models.Model):
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+class Voetbalspelers(models.Model):
+    auteur = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    naam = models.CharField(max_length=200)
+    club = models.CharField(max_length=200)
+    aangemaakt_datum = models.DateTimeField(default=timezone.now)
+    gewijzigd_datum = models.DateTimeField(blank=True, null=True)
 
-    def publish(self):
-        self.published_date = timezone.now()
+    def publiceren(self):
+        self.gewijzigd_datum = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.naam
